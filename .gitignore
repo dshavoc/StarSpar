@@ -1,0 +1,8 @@
+# Code::Blocks
+*.depend
+*.layout
+
+[Bb]uild/
+[Oo]bj/
+[Bb]in/
+*.o
