@@ -2,6 +2,10 @@
 and may not be redistributed without written permission.*/
 //Version: 002
 
+/* NOTE: When compiling on windows, ensure that the linker search paths
+         include both freeglut\bin and freeglut\lib
+         */
+
 #include "LUtil.h"
 
 void runMainLoop( int val );
