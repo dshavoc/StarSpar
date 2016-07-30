@@ -5,12 +5,15 @@ and may not be redistributed without written permission.*/
 #include "LUtil.h"
 
 vector<Animation*> destructionAnims;
+vector<Ship*> ships;
 
 //The current color rendering mode
 int gColorMode = COLOR_MODE_MULTI;
 
 //The projection scale
 GLfloat gProjectionScale = 1.f;
+
+bool keys[256];     //Stores the present state of the keyboard
 
 
 bool initGL()
@@ -39,9 +42,12 @@ bool initGL()
     return true;
 }
 
-void update()
+void update(int timeNowMs)
 {
-
+    ships[0]->thrustLeft(keys['a']);
+    ships[0]->thrustRight(keys['d']);
+    ships[0]->thrustForward(keys['w']);
+    ships[0]->update(timeNowMs);
 }
 
 void render()
@@ -53,7 +59,6 @@ void render()
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
 
-    //Read current time
     int timeNowMs = glutGet(GLUT_ELAPSED_TIME);
 
     //1. Draw grid
@@ -61,15 +66,18 @@ void render()
 
     //2. Draw solars (sun, commets, asteroids, etc...)
 
-    //3. Draw destruction animations
+    //3. Draw destruction animations and debris
     for(unsigned int i = 0; i < destructionAnims.size(); i++) {
         destructionAnims[i]->draw(timeNowMs);
     }
 
 
     //4. Draw ships
+    for(unsigned int i = 0; i < ships.size(); i++) {
+        ships[i]->draw(timeNowMs);
+    }
 
-    //4. Draw projectiles, beam weapon discharge, explosions, and other effects
+    //5. Draw projectiles, beam weapon discharge, explosions, and other effects
 
 
     setProjection();
@@ -78,17 +86,21 @@ void render()
     glutSwapBuffers();
 }
 
-void handleKeys( unsigned char key, int x, int y )
+void handleKeyDown( unsigned char key, int x, int y )
 {
-    //If the user presses q
-    if( key == GLUT_KEY_ALT_L )
-    {
-        //exitGame = true;
-    }
+    keys[key] = true;
+    //printf("Key down: %s\r\n", &key);
+}
 
+void handleKeyUp( unsigned char key, int x, int y )
+{
+    keys[key] = false;
+    //printf("Key up: %s\r\n", &key);   it works
 }
 
 void initGamespace() {
+    memset(keys, 0, sizeof(keys));
+
     LightningAnim *l;
 
     l = new LightningAnim(-50, -50, 50, 50, glutGet(GLUT_ELAPSED_TIME), 0);
@@ -98,6 +110,10 @@ void initGamespace() {
     l = new LightningAnim(50, -50, -50, 50, glutGet(GLUT_ELAPSED_TIME), 0);
     l->start(glutGet(GLUT_ELAPSED_TIME));
     destructionAnims.push_back(l);
+
+    Ship *s = new Ship(0.f, 0.f, 5.f);
+    ships.push_back(s);
+
 }
 
 void drawGrid() {

@@ -1,6 +1,6 @@
 #include "LightningAnim.h"
 
-const unsigned int NUM_SEGMENTS = 8;
+const unsigned int NUM_SEGMENTS = 12;
 
 LightningAnim::LightningAnim(float startX, float startY, float endX, float endY, int startTime, int timeDuration)
 : Animation(startX, startY, startTime, timeDuration)

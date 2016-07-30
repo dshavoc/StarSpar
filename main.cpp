@@ -35,10 +35,11 @@ int main( int argc, char* args[] )
         return 1;
     }
     //Set keyboard handler
-    glutKeyboardFunc( handleKeys );
+    glutKeyboardFunc( handleKeyDown );
+    glutKeyboardUpFunc( handleKeyUp );
 
     //Set rendering function
-    glutDisplayFunc( render );
+    //glutDisplayFunc( render );
 
     //Set main loop
     glutTimerFunc( 1000 / SCREEN_FPS, runMainLoop, 0 );
@@ -53,8 +54,11 @@ int main( int argc, char* args[] )
 
 void runMainLoop( int val )
 {
+
+    int timeNowMs = glutGet(GLUT_ELAPSED_TIME);
+
     //Frame logic
-    update();
+    update(timeNowMs);
     render();
 
     //Run frame one more time
