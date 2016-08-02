@@ -24,7 +24,7 @@ class Ship : public Entity
         //maneuvering thrusters (angular acceleration)
         //main engine (forward acceleration)
 
-        float getForwardAccel() {return 10.f;}  //Placeholder that will eventually call engine.accel()
+        float getForwardAccel() {return 50.f;}  //Placeholder that will eventually call engine.accel()
         float getAngularAccel() {return 400.f;}   //Placeholder that will eventually call thrusters.accelDegrees()
 
 };

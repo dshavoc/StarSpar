@@ -28,8 +28,8 @@ class Entity
 
     protected:
         float radius;
-        float px, py,     theta;      //position in relative world units, angle in degrees
-        float velocity,   omega;
+        float px, py,   theta;      //position in relative world units, facing angle in degrees
+        float vx, vy,   omega;      //velocity, angular velocity
 
         int timeLastUpdate;
 };

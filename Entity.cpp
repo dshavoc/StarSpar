@@ -6,11 +6,8 @@ Entity::Entity(float x, float y, float r)
 {
     px = x;
     py = y;
-    velocity = 0.f;
-    theta = 0.f;
-    omega = 0.f;
-
     radius = r;
+    vx = vy = theta = omega = 0.f;
     timeLastUpdate = 0;
 }
 

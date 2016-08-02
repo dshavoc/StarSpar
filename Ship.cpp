@@ -33,13 +33,18 @@ void Ship::update(int timeNow) {
     float a = isThrustForward ? getForwardAccel() : 0;
     float alpha = ( (isThrustLeft ? -1.f : 0) + (isThrustRight ? 1.f : 0) ) * getAngularAccel();
     float t_s = (float)(timeNow - timeLastUpdate) / 1000.f;
+    float cosTheta = cos(theta * 3.1415926/180);
+    float sinTheta = sin(theta * 3.1415926/180);
 
-    velocity += a * t_s;
+    //Update first derivatives
+    vx += a * cosTheta * t_s;
+    vy += a * sinTheta * t_s;
     omega += alpha * t_s;
 
+    //Update position and angle
+    px += vx * t_s;
+    py += vy * t_s;
     theta += omega * t_s;
-    px += velocity * cos(theta * 3.1415926/180) * t_s;
-    py += velocity * sin(theta * 3.1415926/180) * t_s;
 
     timeLastUpdate = timeNow;
 }
