@@ -21,11 +21,14 @@
 		<Compiler>
 			<Add option="-std=c++11" />
 			<Add option="-Wall" />
+			<Add directory="D:/lib/freeglut/include" />
 		</Compiler>
 		<Linker>
-			<Add library="GL" />
-			<Add library="GLU" />
-			<Add library="glut" />
+			<Add library="OpenGL32" />
+			<Add library="glu32" />
+			<Add library="freeglut" />
+			<Add directory="D:/lib/freeglut/lib" />
+			<Add directory="D:/lib/freeglut/bin" />
 		</Linker>
 		<Unit filename="Animation.cpp">
 			<Option virtualFolder="Anim/" />
@@ -55,6 +58,7 @@
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
