@@ -42,8 +42,8 @@ int main( int argc, char* args[] )
     glutKeyboardFunc( handleKeyDown );
     glutKeyboardUpFunc( handleKeyUp );
 
-    //Set rendering function
-    //glutDisplayFunc( render );
+    //Set rendering function (This is required, else crash with error "No display callback registered for window 1"
+    glutDisplayFunc( render );
 
     //Set main loop
     glutTimerFunc( 1000 / SCREEN_FPS, runMainLoop, 0 );
