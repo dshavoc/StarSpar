@@ -16,22 +16,38 @@ Animation::Animation(float posX, float posY, int timeNow, int transitionTime) {
     this->transitionTime = transitionTime;
 }
 
-void Animation::start(int timeNow) {
+void Animation::start() {
     if(transitionTime <= 0) {
         animState = ON;
     }
     else {
         animState = STARTING;
     }
-    timeLastChangeMs = timeNow;
+    timeLastChangeMs = glutGet(GLUT_ELAPSED_TIME);
 }
 
-void Animation::stop(int timeNow) {
+void Animation::stop() {
     if(transitionTime <= 0) {
         animState = OFF;
     }
     else {
         animState = STOPPING;
     }
-    timeLastChangeMs = timeNow;
+    timeLastChangeMs = glutGet(GLUT_ELAPSED_TIME);
+}
+
+void Animation::updateAnimState(int timeNow) {
+    switch(animState) {
+    case STARTING:
+        if(timeNow - timeLastChangeMs >= transitionTime) {
+            animState = ON;
+            printf("STARTING -> ON\r\n");
+        }
+        break;
+    case STOPPING:
+        if(timeNow - timeLastChangeMs >= transitionTime) {
+            animState = OFF;
+            printf("STOPPING -> OFF\r\n");
+        }
+    }
 }

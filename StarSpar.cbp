@@ -24,9 +24,7 @@
 			<Add directory="D:/lib/freeglut/include" />
 		</Compiler>
 		<Linker>
-			<Add library="OpenGL32" />
-			<Add library="glu32" />
-			<Add library="freeglut" />
+			<Add option="-lGL -lGLU -lglut" />
 			<Add directory="D:/lib/freeglut/lib" />
 			<Add directory="D:/lib/freeglut/bin" />
 		</Linker>
@@ -51,8 +49,18 @@
 		<Unit filename="LightningAnim.h">
 			<Option virtualFolder="Anim/" />
 		</Unit>
-		<Unit filename="Ship.cpp" />
-		<Unit filename="Ship.h" />
+		<Unit filename="Ship.cpp">
+			<Option virtualFolder="Entities/" />
+		</Unit>
+		<Unit filename="Ship.h">
+			<Option virtualFolder="Entities/" />
+		</Unit>
+		<Unit filename="ThrusterAnim.cpp">
+			<Option virtualFolder="Anim/" />
+		</Unit>
+		<Unit filename="ThrusterAnim.h">
+			<Option virtualFolder="Anim/" />
+		</Unit>
 		<Unit filename="animations.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>

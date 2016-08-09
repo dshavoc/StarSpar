@@ -1,6 +1,7 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
+#include <cstdlib>
 #include "LOpenGL.h"
 
 enum AnimState {OFF, STARTING, ON, STOPPING};
@@ -12,8 +13,9 @@ class Animation
         Animation(float posX, float posY, int timeNow, int transitionTime);
         virtual void draw(int timeNow) = 0;
 
-        void start(int timeNow);
-        void stop(int timeNow);
+        void start();
+        void stop();
+        void updateAnimState(int timeNow);
 
     protected:
         AnimState animState;

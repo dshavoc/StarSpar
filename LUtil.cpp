@@ -104,12 +104,15 @@ void initGamespace() {
     LightningAnim *l;
 
     l = new LightningAnim(-50, -50, 50, 50, glutGet(GLUT_ELAPSED_TIME), 0);
-    l->start(glutGet(GLUT_ELAPSED_TIME));
+    //l->start(glutGet(GLUT_ELAPSED_TIME));
     destructionAnims.push_back(l);
 
     l = new LightningAnim(50, -50, -50, 50, glutGet(GLUT_ELAPSED_TIME), 0);
-    l->start(glutGet(GLUT_ELAPSED_TIME));
+    //l->start(glutGet(GLUT_ELAPSED_TIME));
     destructionAnims.push_back(l);
+
+    //ThrusterAnim *t = new ThrusterAnim(0.f, 0.f, 0.f, 25.f);
+    //destructionAnims.push_back(t);
 
     Ship *s = new Ship(0.f, 0.f, 5.f);
     ships.push_back(s);

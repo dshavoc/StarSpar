@@ -1,7 +1,6 @@
 #ifndef LIGHTNINGANIM_H
 #define LIGHTNINGANIM_H
 
-#include <cstdlib>
 #include "Animation.h"
 
 
