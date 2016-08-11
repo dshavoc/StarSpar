@@ -7,7 +7,8 @@ Ship::Ship()
 
 Ship::Ship(float x, float y, float r) : Entity(x, y, r) {
     timeLastUpdate = glutGet(GLUT_ELAPSED_TIME);
-    thrusterAnim = new ThrusterAnim(90.f, -r, 0.f, 10.f);
+    thrusterAnim = new ThrusterAnim(90.f, -r, -r, 10.f);
+    thrusterAnim2 = new ThrusterAnim(90.f, -r, r, 10.f);
     isThrustForward = false;
     isThrustLeft = false;
     isThrustRight = false;
@@ -33,6 +34,7 @@ void Ship::draw(int timeNow) {
     glEnd();
 
     thrusterAnim->draw(timeNow);
+    thrusterAnim2->draw(timeNow);
 }
 
 void Ship::update(int timeNow) {
@@ -58,9 +60,11 @@ void Ship::update(int timeNow) {
 void Ship::thrustForward(bool en) {
     if(en && !isThrustForward) {
         thrusterAnim->start();
+        thrusterAnim2->start();
     }
     else if(!en && isThrustForward) {
         thrusterAnim->stop();
+        thrusterAnim2->stop();
     }
     isThrustForward = en;
 }

@@ -47,6 +47,7 @@ void ThrusterAnim::draw(int timeNow) {
     if(animState != OFF) {
 
         glMatrixMode( GL_MODELVIEW );
+        glPushMatrix();
         glTranslatef(posX, posY, 0.f);
         glRotatef(angle, 0.f, 0.f, 1.f);
 
@@ -72,4 +73,5 @@ void ThrusterAnim::draw(int timeNow) {
 
         glEnd();
     }
+    glPopMatrix();
 }

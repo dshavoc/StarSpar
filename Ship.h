@@ -28,6 +28,7 @@ class Ship : public Entity
         float getAngularAccel() {return 400.f;}   //Placeholder that will eventually call thrusters.accelDegrees()
 
         ThrusterAnim *thrusterAnim;
+        ThrusterAnim *thrusterAnim2;
 };
 
 #endif // SHIP_H
