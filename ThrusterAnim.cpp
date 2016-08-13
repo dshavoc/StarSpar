@@ -2,7 +2,8 @@
 
 #define FLAME_BASE_COLOR    0.f, 0.f, 0.8f
 #define FLAME_BOWL_COLOR    1.f, 0.9f, 0.3f
-#define FLAME_TIP_COLOR     0.6f, 0.3, 0.3f
+#define FLAME_TIP_COLOR     0.6f, 0.3f, 0.3f
+#define FLAME_CENTER_COLOR  0.3f, 0.6f, 1.0f
 
 
 ThrusterAnim::ThrusterAnim(float angle, float xOffset, float yOffset, float flameLength)
@@ -56,20 +57,27 @@ void ThrusterAnim::draw(int timeNow) {
         float flameTipY = (float)(rand() % 200 - 100)/100.f * 0.2f * scale + scale;
 
         glBegin(GL_LINE_STRIP);
-            glColor3f(FLAME_BASE_COLOR);        //Root point 1
+            glColor3f(FLAME_BASE_COLOR);        //Base point 1
             glVertex2f(0.f, 0.f);
 
             glColor3f(FLAME_BOWL_COLOR);        //Bowl point 2
             glVertex2f(0.2f * scale, 0.2f * scale);
 
-            glColor3f(FLAME_TIP_COLOR);
+            glColor3f(FLAME_TIP_COLOR);         //Flame tip
             glVertex2f(flameTipX, flameTipY);
 
             glColor3f(FLAME_BOWL_COLOR);        //Bowl point 4
             glVertex2f(-0.2f * scale, 0.2f * scale);
 
-            glColor3f(FLAME_BASE_COLOR);        //Root point 1
+            glColor3f(FLAME_BASE_COLOR);        //Base point 1
             glVertex2f(0.f, 0.f);
+
+            //Center blue
+            glColor3f(FLAME_CENTER_COLOR);
+            glVertex2f(0.05f * scale, 0.15f * scale);           //Bowl 2
+            glVertex2f(0.2f * flameTipX, 0.35f * flameTipY);    //Tip
+            glVertex2f(-0.05f * scale, 0.15f * scale);          //Bowl 4
+            glVertex2f(0.f, 0.f);                               //Base
 
         glEnd();
     }

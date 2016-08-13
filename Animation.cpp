@@ -10,6 +10,7 @@ Animation::Animation()
 }
 
 Animation::Animation(float posX, float posY, int timeNow, int transitionTime) {
+    animState = OFF;
     this->posX = posX;
     this->posY = posY;
     timeLastChangeMs = timeNow;

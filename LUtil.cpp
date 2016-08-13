@@ -113,6 +113,7 @@ void initGamespace() {
 
     //ThrusterAnim *t = new ThrusterAnim(0.f, 0.f, 0.f, 25.f);
     //destructionAnims.push_back(t);
+    //t->start();
 
     Ship *s = new Ship(0.f, 0.f, 5.f);
     ships.push_back(s);
