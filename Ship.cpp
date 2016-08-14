@@ -9,6 +9,8 @@ Ship::Ship(float x, float y, float r) : Entity(x, y, r) {
     timeLastUpdate = glutGet(GLUT_ELAPSED_TIME);
     thrusterAnim = new ThrusterAnim(90.f, -r, -r, 10.f);
     thrusterAnim2 = new ThrusterAnim(90.f, -r, r, 10.f);
+    thrusterAnimL = new ThrusterAnim(0.f, 1.1f * r, 0.6 * r, 4.f);
+    thrusterAnimR = new ThrusterAnim(180.f, 1.1f * r, -0.6 * r, 4.f);
     isThrustForward = false;
     isThrustLeft = false;
     isThrustRight = false;
@@ -17,6 +19,9 @@ Ship::Ship(float x, float y, float r) : Entity(x, y, r) {
 Ship::~Ship()
 {
     delete thrusterAnim;
+    delete thrusterAnim2;
+    delete thrusterAnimL;
+    delete thrusterAnimR;
 }
 
 void Ship::draw(int timeNow) {
@@ -35,26 +40,15 @@ void Ship::draw(int timeNow) {
 
     thrusterAnim->draw(timeNow);
     thrusterAnim2->draw(timeNow);
+    thrusterAnimL->draw(timeNow);
+    thrusterAnimR->draw(timeNow);
 }
 
 void Ship::update(int timeNow) {
-    float a = isThrustForward ? getForwardAccel() : 0;
-    float alpha = ( (isThrustLeft ? -1.f : 0) + (isThrustRight ? 1.f : 0) ) * getAngularAccel();
-    float t_s = (float)(timeNow - timeLastUpdate) / 1000.f;
-    float cosTheta = cos(theta * 3.1415926/180);
-    float sinTheta = sin(theta * 3.1415926/180);
+    float accel = isThrustForward ? getForwardAccel() : 0;
+    float angularAccel = ( (isThrustLeft ? -1.f : 0) + (isThrustRight ? 1.f : 0) ) * getAngularAccel();
 
-    //Update first derivatives
-    vx += a * cosTheta * t_s;
-    vy += a * sinTheta * t_s;
-    omega += alpha * t_s;
-
-    //Update position and angle
-    px += vx * t_s;
-    py += vy * t_s;
-    theta += omega * t_s;
-
-    timeLastUpdate = timeNow;
+    Entity::update(timeNow, accel, theta, angularAccel);
 }
 
 void Ship::thrustForward(bool en) {
@@ -67,4 +61,24 @@ void Ship::thrustForward(bool en) {
         thrusterAnim2->stop();
     }
     isThrustForward = en;
+}
+
+void Ship::thrustLeft(bool en) {
+    if(en && !isThrustLeft) {
+        thrusterAnimL->start();
+    }
+    else if(!en && isThrustLeft) {
+        thrusterAnimL->stop();
+    }
+    isThrustLeft = en;
+}
+
+void Ship::thrustRight(bool en) {
+    if(en && !isThrustRight) {
+        thrusterAnimR->start();
+    }
+    else if(!en && isThrustRight) {
+        thrusterAnimR->stop();
+    }
+    isThrustRight = en;
 }

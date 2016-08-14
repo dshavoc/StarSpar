@@ -14,8 +14,8 @@ class Ship : public Entity
         void update(int);
 
         void thrustForward(bool en);
-        void thrustLeft(bool en) {isThrustLeft = en;}
-        void thrustRight(bool en) {isThrustRight = en;}
+        void thrustLeft(bool en);
+        void thrustRight(bool en);
     protected:
         bool isThrustForward, isThrustLeft, isThrustRight;     //combinations of these may produce unique results
 
@@ -29,6 +29,8 @@ class Ship : public Entity
 
         ThrusterAnim *thrusterAnim;
         ThrusterAnim *thrusterAnim2;
+        ThrusterAnim *thrusterAnimL;
+        ThrusterAnim *thrusterAnimR;
 };
 
 #endif // SHIP_H

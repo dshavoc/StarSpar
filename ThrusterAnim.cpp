@@ -13,6 +13,8 @@ ThrusterAnim::ThrusterAnim(float angle, float xOffset, float yOffset, float flam
     this->flameLength = flameLength;
 }
 
+ThrusterAnim::~ThrusterAnim() {}
+
 /*  The jet will have a source at point 1, bowl out at points 2 and 4, then hit a random point 3,
     all scaled by flameLength:
         1
@@ -33,11 +35,11 @@ void ThrusterAnim::draw(int timeNow) {
     switch(animState) {
         case STARTING:
             scale = lerp(0.f, flameLength, t);
-            printf("starting, t=%f\r\n", t);
+            //printf("starting, t=%f\r\n", t);
             break;
         case STOPPING:
             scale = lerp(flameLength, 0.f, t);
-            printf("stopping, t=%f\r\n", t);
+            //printf("stopping, t=%f\r\n", t);
             break;
         case ON:
             scale = flameLength;

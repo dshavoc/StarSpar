@@ -24,7 +24,7 @@ class Entity
         bool collidesWith(Entity &other);
 
         virtual void draw(int timeNow) = 0;
-        void update(int timeNow);
+        void update(int timeNow, float accel, float accelAngle, float angularAccel);
 
     protected:
         float radius;

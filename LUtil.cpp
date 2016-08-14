@@ -6,6 +6,7 @@ and may not be redistributed without written permission.*/
 
 vector<Animation*> destructionAnims;
 vector<Ship*> ships;
+Projectile *projectile;
 
 //The current color rendering mode
 int gColorMode = COLOR_MODE_MULTI;
@@ -48,6 +49,7 @@ void update(int timeNowMs)
     ships[0]->thrustRight(keys['d']);
     ships[0]->thrustForward(keys['w']);
     ships[0]->update(timeNowMs);
+    projectile->update(timeNowMs);
 }
 
 void render()
@@ -78,6 +80,7 @@ void render()
     }
 
     //5. Draw projectiles, beam weapon discharge, explosions, and other effects
+    projectile->draw(timeNowMs);
 
 
     setProjection();
@@ -117,6 +120,8 @@ void initGamespace() {
 
     Ship *s = new Ship(0.f, 0.f, 5.f);
     ships.push_back(s);
+
+    projectile = new Projectile(0.f, 0.f, 5.f, 20.f, 50.f);
 
 }
 
