@@ -7,13 +7,14 @@
 
 /*
  * Entity is the parent class of all objects in the world that interact with
- * each other, such as planets, comets, ships, missiles.
+ * each other, such as planets, comets, ships, missiles. This class handles
+ * common functions such as physics and collision detection.
  */
 class Entity
 {
     public:
         Entity();
-        Entity(float x, float y, float r);
+        Entity(float x, float y, float r, int timeNow);
         virtual ~Entity();
 
         float getRadius() { return radius; }
@@ -25,6 +26,8 @@ class Entity
 
         virtual void draw(int timeNow) = 0;
         void update(int timeNow, float accel, float accelAngle, float angularAccel);
+
+        float DEG_TO_RAD = 3.14159/180;
 
     protected:
         float radius;

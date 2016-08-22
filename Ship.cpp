@@ -1,11 +1,6 @@
 #include "Ship.h"
 
-Ship::Ship()
-{
-    //ctor
-}
-
-Ship::Ship(float x, float y, float r) : Entity(x, y, r) {
+Ship::Ship(float x, float y, float r, int t, void (*addProjectileHandle)(Projectile*)) : Entity(x, y, r, t) {
     timeLastUpdate = glutGet(GLUT_ELAPSED_TIME);
     thrusterAnim = new ThrusterAnim(90.f, -r, -r, 10.f);
     thrusterAnim2 = new ThrusterAnim(90.f, -r, r, 10.f);
@@ -14,6 +9,7 @@ Ship::Ship(float x, float y, float r) : Entity(x, y, r) {
     isThrustForward = false;
     isThrustLeft = false;
     isThrustRight = false;
+    addProjectile = addProjectileHandle;
 }
 
 Ship::~Ship()
@@ -81,4 +77,15 @@ void Ship::thrustRight(bool en) {
         thrusterAnimR->stop();
     }
     isThrustRight = en;
+}
+
+void Ship::fire() {
+    float PROJECTILE_SPEED = 150;
+    float projectileVx = PROJECTILE_SPEED * cos(theta * DEG_TO_RAD);
+    float projectileVy = PROJECTILE_SPEED * sin(theta * DEG_TO_RAD);
+    (*addProjectile)( new Projectile(
+        px, py, 5.f,
+        vx + projectileVx,
+        vy + projectileVy,
+        timeLastUpdate) );
 }

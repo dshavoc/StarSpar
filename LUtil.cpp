@@ -6,7 +6,7 @@ and may not be redistributed without written permission.*/
 
 vector<Animation*> destructionAnims;
 vector<Ship*> ships;
-Projectile *projectile;
+vector<Projectile*> projectiles;
 
 //The current color rendering mode
 int gColorMode = COLOR_MODE_MULTI;
@@ -48,8 +48,15 @@ void update(int timeNowMs)
     ships[0]->thrustLeft(keys['a']);
     ships[0]->thrustRight(keys['d']);
     ships[0]->thrustForward(keys['w']);
+
+    if(keys['e']) ships[0]->fire();
+
     ships[0]->update(timeNowMs);
-    projectile->update(timeNowMs);
+
+    for(vector<Projectile*>::iterator it = projectiles.begin(); it != projectiles.end(); it++)
+    {
+        (*it)->update(timeNowMs);
+    }
 }
 
 void render()
@@ -80,7 +87,10 @@ void render()
     }
 
     //5. Draw projectiles, beam weapon discharge, explosions, and other effects
-    projectile->draw(timeNowMs);
+    for(vector<Projectile*>::iterator it = projectiles.begin(); it != projectiles.end(); it++)
+    {
+        (*it)->draw(timeNowMs);
+    }
 
 
     setProjection();
@@ -102,15 +112,18 @@ void handleKeyUp( unsigned char key, int x, int y )
 }
 
 void initGamespace() {
+
+    int timeNow = glutGet(GLUT_ELAPSED_TIME);
+
     memset(keys, 0, sizeof(keys));
 
     LightningAnim *l;
 
-    l = new LightningAnim(-50, -50, 50, 50, glutGet(GLUT_ELAPSED_TIME), 0);
+    l = new LightningAnim(-50, -50, 50, 50, timeNow, 0);
     //l->start(glutGet(GLUT_ELAPSED_TIME));
     destructionAnims.push_back(l);
 
-    l = new LightningAnim(50, -50, -50, 50, glutGet(GLUT_ELAPSED_TIME), 0);
+    l = new LightningAnim(50, -50, -50, 50, timeNow, 0);
     //l->start(glutGet(GLUT_ELAPSED_TIME));
     destructionAnims.push_back(l);
 
@@ -118,10 +131,8 @@ void initGamespace() {
     //destructionAnims.push_back(t);
     //t->start();
 
-    Ship *s = new Ship(0.f, 0.f, 5.f);
+    Ship *s = new Ship(0.f, 0.f, 5.f, timeNow, addProjectile);
     ships.push_back(s);
-
-    projectile = new Projectile(0.f, 0.f, 5.f, 20.f, 50.f);
 
 }
 
@@ -162,4 +173,8 @@ void setProjection() {
     int winHeight = glutGet(GLUT_WINDOW_HEIGHT);
     GLdouble ar = (double)winWidth / (double)winHeight;
     glOrtho(-VIEW_NATURAL_SCALE*ar, VIEW_NATURAL_SCALE*ar, VIEW_NATURAL_SCALE, -VIEW_NATURAL_SCALE, 1.0, -1.0 );
+}
+
+void addProjectile(Projectile *p) {
+    projectiles.push_back(p);
 }

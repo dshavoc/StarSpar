@@ -16,7 +16,6 @@ and may not be redistributed without written permission.*/
 
 using namespace std;
 
-extern vector<Animation*> destructionAnims;     //extern so it isn't multiply declared by every file that includes this
 
 //Screen constants
 const int SCREEN_WIDTH = 800;
@@ -29,19 +28,6 @@ const int COLOR_MODE_CYAN = 0;
 const int COLOR_MODE_MULTI = 1;
 
 bool initGL();
-/*
-Pre Condition:
- -A valid OpenGL context
-Post Condition:
- -Initializes matrices and clear color
- -Reports to console if there was an OpenGL error
- -Returns false if there was an error in initialization
-Side Effects:
- -Projection matrix is set to an orthographic matrix
- -Modelview matrix is set to identity matrix
- -Matrix mode is set to modelview
- -Clear color is set to black
-*/
 
 //Perform per-frame logic
 void update(int timeNowMs);
@@ -56,5 +42,8 @@ void handleKeyUp( unsigned char key, int x, int y );
 void initGamespace();
 void drawGrid();
 void setProjection();
+
+void addProjectile(Projectile*);        //A pointer to this function will be passed to all ships as a way for them
+                                        //to add projectiles to the world without any other read/write ability.
 
 #endif

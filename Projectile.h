@@ -9,7 +9,7 @@ class Projectile : public Entity
 
         enum Style {SOLID, PLASMA} style;
 
-        Projectile(float x, float y, float r, float vx, float vy, Style style = SOLID);
+        Projectile(float x, float y, float r, float vx, float vy, int timeNow, Style style = SOLID);
         void draw(int);
         void update(int);
     protected:
