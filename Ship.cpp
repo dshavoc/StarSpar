@@ -79,13 +79,18 @@ void Ship::thrustRight(bool en) {
     isThrustRight = en;
 }
 
-void Ship::fire() {
-    float PROJECTILE_SPEED = 150;
-    float projectileVx = PROJECTILE_SPEED * cos(theta * DEG_TO_RAD);
-    float projectileVy = PROJECTILE_SPEED * sin(theta * DEG_TO_RAD);
-    (*addProjectile)( new Projectile(
-        px, py, 5.f,
-        vx + projectileVx,
-        vy + projectileVy,
-        timeLastUpdate) );
+void Ship::fire(int timeNow) {
+    //Eventually this code will live in a Weapon class and be customizable there.
+    if(timeNow - weapTimeLastFired > weapFirePeriod) {
+        weapTimeLastFired = timeNow;
+
+        float PROJECTILE_SPEED = 150;
+        float projectileVx = PROJECTILE_SPEED * cos(theta * DEG_TO_RAD);
+        float projectileVy = PROJECTILE_SPEED * sin(theta * DEG_TO_RAD);
+        (*addProjectile)( new Projectile(
+            px, py, 1.f,
+            vx + projectileVx,
+            vy + projectileVy,
+            timeLastUpdate) );
+    }
 }

@@ -13,7 +13,7 @@ void Projectile::update(int timeNow) {
 }
 
 void Projectile::draw(int timeNow) {
-    float r = 2.0f;
+    float r = radius;
     unsigned int NUM_POINTS = 12;
 
     glMatrixMode( GL_MODELVIEW );

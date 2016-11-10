@@ -20,7 +20,7 @@ class Ship : public Entity
         void thrustForward(bool en);
         void thrustLeft(bool en);
         void thrustRight(bool en);
-        void fire();
+        void fire(int);
 
 
     protected:
@@ -40,6 +40,10 @@ class Ship : public Entity
         ThrusterAnim *thrusterAnimR;
 
         void (*addProjectile)(Projectile*);
+
+        //Weapon variables that may be encapsulated in a Weapon class later
+        int weapFirePeriod = 300;       //ms
+        int weapTimeLastFired = 0;
 };
 
 #endif // SHIP_H

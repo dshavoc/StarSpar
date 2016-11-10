@@ -49,6 +49,12 @@
 		<Unit filename="LightningAnim.h">
 			<Option virtualFolder="Anim/" />
 		</Unit>
+		<Unit filename="Projectile.cpp">
+			<Option virtualFolder="Entities/" />
+		</Unit>
+		<Unit filename="Projectile.h">
+			<Option virtualFolder="Entities/" />
+		</Unit>
 		<Unit filename="Ship.cpp">
 			<Option virtualFolder="Entities/" />
 		</Unit>

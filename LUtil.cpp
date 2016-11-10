@@ -49,7 +49,7 @@ void update(int timeNowMs)
     ships[0]->thrustRight(keys['d']);
     ships[0]->thrustForward(keys['w']);
 
-    if(keys['e']) ships[0]->fire();
+    if(keys['e']) ships[0]->fire(timeNowMs);
 
     ships[0]->update(timeNowMs);
 
