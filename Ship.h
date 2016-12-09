@@ -2,7 +2,6 @@
 #define SHIP_H
 
 #include "Entity.h"
-#include <vector>
 #include "ThrusterAnim.h"
 #include "Projectile.h"
 
@@ -14,7 +13,7 @@ class Ship : public Entity
 
         //Administrative
         void draw(int);
-        void update(int);
+        void update(int, std::vector<Solar*> solars);
 
         //Public Actions
         void thrustForward(bool en);

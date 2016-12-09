@@ -23,6 +23,7 @@ Ship::~Ship()
 void Ship::draw(int timeNow) {
 
     glMatrixMode( GL_MODELVIEW );
+    glLoadIdentity();
     glTranslatef(px, py, 0.f);
     glRotatef(theta, 0.f, 0.f, 1.f);
 
@@ -40,11 +41,11 @@ void Ship::draw(int timeNow) {
     thrusterAnimR->draw(timeNow);
 }
 
-void Ship::update(int timeNow) {
+void Ship::update(int timeNow, std::vector<Solar*> solars) {
     float accel = isThrustForward ? getForwardAccel() : 0;
     float angularAccel = ( (isThrustLeft ? -1.f : 0) + (isThrustRight ? 1.f : 0) ) * getAngularAccel();
 
-    Entity::update(timeNow, accel, theta, angularAccel);
+    Entity::update(timeNow, accel, theta, angularAccel, solars);
 }
 
 void Ship::thrustForward(bool en) {

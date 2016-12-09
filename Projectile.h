@@ -11,7 +11,7 @@ class Projectile : public Entity
 
         Projectile(float x, float y, float r, float vx, float vy, int timeNow, Style style = SOLID);
         void draw(int);
-        void update(int);
+        void update(int, std::vector<Solar*> solars);
     protected:
     private:
 };

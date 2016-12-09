@@ -7,6 +7,7 @@ and may not be redistributed without written permission.*/
 vector<Animation*> destructionAnims;
 vector<Ship*> ships;
 vector<Projectile*> projectiles;
+vector<Solar*> solars;                      //Solars are gravity sources
 
 //The current color rendering mode
 int gColorMode = COLOR_MODE_MULTI;
@@ -51,11 +52,11 @@ void update(int timeNowMs)
 
     if(keys['e']) ships[0]->fire(timeNowMs);
 
-    ships[0]->update(timeNowMs);
+    ships[0]->update(timeNowMs, solars);
 
     for(vector<Projectile*>::iterator it = projectiles.begin(); it != projectiles.end(); it++)
     {
-        (*it)->update(timeNowMs);
+        (*it)->update(timeNowMs, solars);
     }
 }
 
@@ -74,6 +75,9 @@ void render()
     drawGrid();
 
     //2. Draw solars (sun, commets, asteroids, etc...)
+    for(unsigned int i=0; i < solars.size(); i++) {
+        solars[i]->draw(timeNowMs);
+    }
 
     //3. Draw destruction animations and debris
     for(unsigned int i = 0; i < destructionAnims.size(); i++) {
@@ -133,6 +137,9 @@ void initGamespace() {
 
     Ship *s = new Ship(0.f, 0.f, 5.f, timeNow, addProjectile);
     ships.push_back(s);
+
+    Solar *sol = new Solar(-40.f, 0.f, 12.f, 20.f);
+    solars.push_back(sol);
 
 }
 

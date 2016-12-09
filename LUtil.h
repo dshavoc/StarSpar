@@ -13,6 +13,7 @@ and may not be redistributed without written permission.*/
 #include "animations.h"
 #include "Ship.h"
 #include "Projectile.h"
+#include "Solar.h"
 
 using namespace std;
 

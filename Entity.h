@@ -3,7 +3,16 @@
 
 #include "LOpenGL.h"
 #include <cmath>
-#include "LOpenGL.h"
+#include <vector>
+
+//#include "Solar.h"  //If this is included, then Entity.cpp can't cast 'this' to Solar*
+class Solar;    //Forward declare so that void update(...Solar...) will be happy
+                //If Solar.h is included, then the Solar class gets choked up including Entity.
+                //I don't know why, since the #ifndef guard block is there.
+
+                //Lesson learned:   When referring to child from parent, forward declare the
+                //                  child class name from the parent header, then #include
+                //                  the child's header in the parent's .cpp
 
 /*
  * Entity is the parent class of all objects in the world that interact with
@@ -25,7 +34,7 @@ class Entity
         bool collidesWith(Entity &other);
 
         virtual void draw(int timeNow) = 0;
-        void update(int timeNow, float accel, float accelAngle, float angularAccel);
+        void update(int timeNow, float accel, float accelAngle, float angularAccel, std::vector<Solar*> solars);
 
         float DEG_TO_RAD = 3.14159/180;
 

@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "Solar.h"      //Including this here to avoid circular reference issues (can't detect getX(), ... )
 
 Entity::Entity() : Entity(0, 0, 0, 0) {}
 
@@ -20,14 +21,34 @@ bool Entity::collidesWith(Entity &other) {
     return hypot( other.getX() - getX(), other.getY() - getY() ) < (other.getRadius() + getRadius());
 }
 
-void Entity::update(int timeNow, float accel, float accelAngle, float angularAccel) {
+void Entity::update(int timeNow, float accel, float accelAngle, float angularAccel, std::vector<Solar*> solars) {
     float t_s = (float)(timeNow - timeLastUpdate) / 1000.f;
     float cosTheta = cos(accelAngle * DEG_TO_RAD);
     float sinTheta = sin(accelAngle * DEG_TO_RAD);
+    float dx, dy, r;
+    float a, ax = 0, ay = 0;
+
+    //Add acceleration due to solar gravity sources
+    if(!solars.empty()) {
+        for(unsigned int i=0; i<solars.size(); i++) {
+            if(this != solars[i]) {
+                dx  = solars[i]->getX() - getX();
+                dy  = solars[i]->getY() - getY();
+                r   = hypot(dx, dy);
+                a   = 1000.f * solars[i]->getGravity() / powf(r, 2);
+                ax += a * dx / r;
+                ay += a * dy / r;
+            }
+        }
+    }
+
+    //Add acceleration due to ship thrust
+    ax += accel * cosTheta;
+    ay += accel * sinTheta;
 
     //Update first derivatives
-    vx += accel * cosTheta * t_s;
-    vy += accel * sinTheta * t_s;
+    vx += ax * t_s;
+    vy += ay * t_s;
     omega += angularAccel * t_s;
 
     //Update position and angle

@@ -8,8 +8,8 @@ Projectile::Projectile(float x, float y, float r, float vx, float vy, int t, Sty
     this->style = style;
 }
 
-void Projectile::update(int timeNow) {
-    Entity::update(timeNow, 0.f, 0.f, 0.f);
+void Projectile::update(int timeNow, std::vector<Solar*> solars) {
+    Entity::update(timeNow, 0.f, 0.f, 0.f, solars);
 }
 
 void Projectile::draw(int timeNow) {
