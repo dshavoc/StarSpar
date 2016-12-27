@@ -1,16 +1,6 @@
-/*This source code copyrighted by Lazy Foo' Productions (2004-2013)
-and may not be redistributed without written permission.*/
-//Version: 002
 
 #include "LUtil.h"
 
-vector<Animation*> destructionAnims;
-vector<Ship*> ships;
-vector<Projectile*> projectiles;
-vector<Solar*> solars;                      //Solars are gravity sources
-
-//The current color rendering mode
-int gColorMode = COLOR_MODE_MULTI;
 
 //The projection scale
 GLfloat gProjectionScale = 1.f;
@@ -44,64 +34,6 @@ bool initGL()
     return true;
 }
 
-void update(int timeNowMs)
-{
-    ships[0]->thrustLeft(keys['a']);
-    ships[0]->thrustRight(keys['d']);
-    ships[0]->thrustForward(keys['w']);
-
-    if(keys['e']) ships[0]->fire(timeNowMs);
-
-    ships[0]->update(timeNowMs, solars);
-
-    for(vector<Projectile*>::iterator it = projectiles.begin(); it != projectiles.end(); it++)
-    {
-        (*it)->update(timeNowMs, solars);
-    }
-}
-
-void render()
-{
-    //Clear color buffer
-    glClear( GL_COLOR_BUFFER_BIT );
-
-    //Reset modelview matrix
-    glMatrixMode( GL_MODELVIEW );
-    glLoadIdentity();
-
-    int timeNowMs = glutGet(GLUT_ELAPSED_TIME);
-
-    //1. Draw grid
-    drawGrid();
-
-    //2. Draw solars (sun, commets, asteroids, etc...)
-    for(unsigned int i=0; i < solars.size(); i++) {
-        solars[i]->draw(timeNowMs);
-    }
-
-    //3. Draw destruction animations and debris
-    for(unsigned int i = 0; i < destructionAnims.size(); i++) {
-        destructionAnims[i]->draw(timeNowMs);
-    }
-
-
-    //4. Draw ships
-    for(unsigned int i = 0; i < ships.size(); i++) {
-        ships[i]->draw(timeNowMs);
-    }
-
-    //5. Draw projectiles, beam weapon discharge, explosions, and other effects
-    for(vector<Projectile*>::iterator it = projectiles.begin(); it != projectiles.end(); it++)
-    {
-        (*it)->draw(timeNowMs);
-    }
-
-
-    setProjection();
-
-    //Update screen
-    glutSwapBuffers();
-}
 
 void handleKeyDown( unsigned char key, int x, int y )
 {
@@ -115,60 +47,12 @@ void handleKeyUp( unsigned char key, int x, int y )
     //printf("Key up: %s\r\n", &key);   it works
 }
 
-void initGamespace() {
-
-    int timeNow = glutGet(GLUT_ELAPSED_TIME);
-
+void resetKeys() {
     memset(keys, 0, sizeof(keys));
-
-    LightningAnim *l;
-
-    l = new LightningAnim(-50, -50, 50, 50, timeNow, 0);
-    //l->start(glutGet(GLUT_ELAPSED_TIME));
-    destructionAnims.push_back(l);
-
-    l = new LightningAnim(50, -50, -50, 50, timeNow, 0);
-    //l->start(glutGet(GLUT_ELAPSED_TIME));
-    destructionAnims.push_back(l);
-
-    //ThrusterAnim *t = new ThrusterAnim(0.f, 0.f, 0.f, 25.f);
-    //destructionAnims.push_back(t);
-    //t->start();
-
-    Ship *s = new Ship(0.f, 0.f, 5.f, timeNow, addProjectile);
-    ships.push_back(s);
-
-    Solar *sol = new Solar(-40.f, 0.f, 12.f, 20.f);
-    solars.push_back(sol);
-
 }
 
-void drawGrid() {
-    const int GRID_MIN = -5;
-    const int GRID_MAX = 5;
-    const float GRID_SCALE = 20;
-
-    glBegin( GL_LINES );
-    glColor3f(0.2f, 0.2f, 0.2f);
-
-    for(int x = GRID_MIN; x <= GRID_MAX; x++) {
-        //Horizontal
-        glVertex2f(GRID_MIN * GRID_SCALE, x * GRID_SCALE);
-        glVertex2f(GRID_MAX * GRID_SCALE, x * GRID_SCALE);
-
-        //Vertical
-        glVertex2f(x * GRID_SCALE, GRID_MIN * GRID_SCALE);
-        glVertex2f(x * GRID_SCALE, GRID_MAX * GRID_SCALE);
-    }
-
-    //Major axes
-    glColor3f(0.35f, 0.35f, 0.35f);
-    glVertex2f(GRID_MIN * GRID_SCALE, 0);
-    glVertex2f(GRID_MAX * GRID_SCALE, 0);
-    glVertex2f(0, GRID_MIN * GRID_SCALE);
-    glVertex2f(0, GRID_MAX * GRID_SCALE);
-
-    glEnd();
+bool getKey(unsigned int code) {
+    return keys[code];
 }
 
 void setProjection() {
@@ -182,6 +66,4 @@ void setProjection() {
     glOrtho(-VIEW_NATURAL_SCALE*ar, VIEW_NATURAL_SCALE*ar, VIEW_NATURAL_SCALE, -VIEW_NATURAL_SCALE, 1.0, -1.0 );
 }
 
-void addProjectile(Projectile *p) {
-    projectiles.push_back(p);
-}
+

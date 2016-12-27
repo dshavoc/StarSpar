@@ -1,6 +1,8 @@
+
 #include "Draw.h"
-#include "LOpenGL.h"
 #include <cmath>
+
+
 
 void drawCircle(float radius, unsigned int numPoints) {
 
@@ -44,4 +46,32 @@ void drawHexGrid(float radiusOut, float radiusHex) {
         }
     }
 
+}
+
+void drawGrid() {
+    const int GRID_MIN = -5;
+    const int GRID_MAX = 5;
+    const float GRID_SCALE = 20;
+
+    glBegin( GL_LINES );
+    glColor3f(0.2f, 0.2f, 0.2f);
+
+    for(int x = GRID_MIN; x <= GRID_MAX; x++) {
+        //Horizontal
+        glVertex2f(GRID_MIN * GRID_SCALE, x * GRID_SCALE);
+        glVertex2f(GRID_MAX * GRID_SCALE, x * GRID_SCALE);
+
+        //Vertical
+        glVertex2f(x * GRID_SCALE, GRID_MIN * GRID_SCALE);
+        glVertex2f(x * GRID_SCALE, GRID_MAX * GRID_SCALE);
+    }
+
+    //Major axes
+    glColor3f(0.35f, 0.35f, 0.35f);
+    glVertex2f(GRID_MIN * GRID_SCALE, 0);
+    glVertex2f(GRID_MAX * GRID_SCALE, 0);
+    glVertex2f(0, GRID_MIN * GRID_SCALE);
+    glVertex2f(0, GRID_MAX * GRID_SCALE);
+
+    glEnd();
 }

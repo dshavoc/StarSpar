@@ -6,7 +6,8 @@ and may not be redistributed without written permission.*/
          include both freeglut\bin and freeglut\lib
          */
 
-#include "LUtil.h"
+
+#include "Game.h"
 
 void runMainLoop( int val );
 /*
