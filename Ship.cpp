@@ -10,6 +10,8 @@ Ship::Ship(float x, float y, float r, int t, void (*addProjectileHandle)(Project
     isThrustLeft = false;
     isThrustRight = false;
     addProjectile = addProjectileHandle;
+
+    hitPoints = 100;
 }
 
 Ship::~Ship()
@@ -27,6 +29,7 @@ void Ship::draw(int timeNow) {
     glTranslatef(px, py, 0.f);
     glRotatef(theta, 0.f, 0.f, 1.f);
 
+
     glBegin(GL_LINE_STRIP);
         glColor3f(0.9, 0.9, 0.9);
         glVertex2f(10.f, 0.f);
@@ -39,6 +42,8 @@ void Ship::draw(int timeNow) {
     thrusterAnim2->draw(timeNow);
     thrusterAnimL->draw(timeNow);
     thrusterAnimR->draw(timeNow);
+
+    //Draw weapons and shields
 }
 
 void Ship::update(int timeNow, std::vector<Solar*> solars) {

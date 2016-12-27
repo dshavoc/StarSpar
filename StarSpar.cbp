@@ -34,6 +34,8 @@
 		<Unit filename="Animation.h">
 			<Option virtualFolder="Anim/" />
 		</Unit>
+		<Unit filename="Draw.cpp" />
+		<Unit filename="Draw.h" />
 		<Unit filename="Entity.cpp">
 			<Option virtualFolder="Entities/" />
 		</Unit>

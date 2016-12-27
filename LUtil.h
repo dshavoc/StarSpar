@@ -14,6 +14,7 @@ and may not be redistributed without written permission.*/
 #include "Ship.h"
 #include "Projectile.h"
 #include "Solar.h"
+#include "Draw.h"
 
 using namespace std;
 

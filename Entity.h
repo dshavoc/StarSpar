@@ -4,6 +4,7 @@
 #include "LOpenGL.h"
 #include <cmath>
 #include <vector>
+#include "Draw.h"
 
 //#include "Solar.h"  //If this is included, then Entity.cpp can't cast 'this' to Solar*
 class Solar;    //Forward declare so that void update(...Solar...) will be happy
