@@ -16,12 +16,14 @@ class Animation
         void start();
         void stop();
         void updateAnimState(int timeNow);
+        bool isFinished() {return isFinishedFlag;}
 
     protected:
         AnimState animState;
         int timeLastChangeMs;
         int transitionTime;
         float posX, posY;
+        bool isFinishedFlag;
 
         float lerp(float a, float b, float t) {return (b - a) * t + a;}
 };

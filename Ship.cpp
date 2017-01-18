@@ -44,6 +44,8 @@ void Ship::draw(int timeNow) {
     thrusterAnimR->draw(timeNow);
 
     //Draw weapons and shields
+    //glColor3f(0.4, 0.4, .7);
+    //drawHexGrid(20, 5);
 }
 
 void Ship::update(int timeNow, std::vector<Solar*> solars) {

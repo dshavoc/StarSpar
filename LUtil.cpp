@@ -5,7 +5,7 @@
 //The projection scale
 GLfloat gProjectionScale = 1.f;
 
-bool keys[256];     //Stores the present state of the keyboard
+bool keys[128];     //Stores the present state of the keyboard
 
 
 bool initGL()

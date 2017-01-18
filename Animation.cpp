@@ -7,6 +7,7 @@ Animation::Animation()
     transitionTime = 0;
     posX = 0.;
     posY = 0.;
+    isFinishedFlag = false;
 }
 
 Animation::Animation(float posX, float posY, int timeNow, int transitionTime) {
@@ -50,5 +51,6 @@ void Animation::updateAnimState(int timeNow) {
             animState = OFF;
             printf("STOPPING -> OFF\r\n");
         }
+    default:;
     }
 }

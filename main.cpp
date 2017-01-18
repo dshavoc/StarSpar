@@ -8,6 +8,7 @@ and may not be redistributed without written permission.*/
 
 
 #include "Game.h"
+#include <time.h>
 
 void runMainLoop( int val );
 /*
@@ -21,6 +22,9 @@ Side Effects:
 
 int main( int argc, char* args[] )
 {
+    //Initialize randon number generator
+    srand (time(NULL));
+
     //Initialize FreeGLUT
     glutInit( &argc, args );
 
@@ -32,7 +36,7 @@ int main( int argc, char* args[] )
     glutInitWindowSize( SCREEN_WIDTH, SCREEN_HEIGHT );
 
     glutCreateWindow( "OpenGL" );
-//glutFullScreen();
+    //glutFullScreen(); //Alt+F4 to exit
     //Do post window/context creation initialization
     if( !initGL() )
     {

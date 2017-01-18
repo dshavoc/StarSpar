@@ -22,6 +22,7 @@ vector<Solar*> solars;                      //Solars are gravity sources
 
 void update(int timeNowMs)
 {
+
     ships[0]->thrustLeft(getKey('a'));
     ships[0]->thrustRight(getKey('d'));
     ships[0]->thrustForward(getKey('w'));
@@ -94,6 +95,10 @@ void initGamespace() {
     l = new LightningAnim(50, -50, -50, 50, timeNow, 0);
     //l->start(glutGet(GLUT_ELAPSED_TIME));
     destructionAnims.push_back(l);
+
+    SparkAnim *sa = new SparkAnim(0.f, 0.f, 10.f, timeNow);
+    sa->start();
+    destructionAnims.push_back(sa);
 
     //ThrusterAnim *t = new ThrusterAnim(0.f, 0.f, 0.f, 25.f);
     //destructionAnims.push_back(t);

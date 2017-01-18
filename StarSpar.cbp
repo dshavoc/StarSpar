@@ -42,6 +42,8 @@
 		<Unit filename="Entity.h">
 			<Option virtualFolder="Entities/" />
 		</Unit>
+		<Unit filename="Game.cpp" />
+		<Unit filename="Game.h" />
 		<Unit filename="LOpenGL.h" />
 		<Unit filename="LUtil.cpp" />
 		<Unit filename="LUtil.h" />
@@ -51,6 +53,8 @@
 		<Unit filename="LightningAnim.h">
 			<Option virtualFolder="Anim/" />
 		</Unit>
+		<Unit filename="MyMath.cpp" />
+		<Unit filename="MyMath.h" />
 		<Unit filename="Projectile.cpp">
 			<Option virtualFolder="Entities/" />
 		</Unit>
@@ -68,6 +72,12 @@
 		</Unit>
 		<Unit filename="Solar.h">
 			<Option virtualFolder="Entities/" />
+		</Unit>
+		<Unit filename="SparkAnim.cpp">
+			<Option virtualFolder="Anim/" />
+		</Unit>
+		<Unit filename="SparkAnim.h">
+			<Option virtualFolder="Anim/" />
 		</Unit>
 		<Unit filename="ThrusterAnim.cpp">
 			<Option virtualFolder="Anim/" />

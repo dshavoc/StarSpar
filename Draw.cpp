@@ -1,7 +1,6 @@
 
 #include "Draw.h"
-#include <cmath>
-
+#include "MyMath.h"
 
 
 void drawCircle(float radius, unsigned int numPoints) {
