@@ -1,11 +1,10 @@
 
 #include "LUtil.h"
 
+bool keys[128];     //Stores the present state of the keyboard
 
 //The projection scale
 GLfloat gProjectionScale = 1.f;
-
-bool keys[128];     //Stores the present state of the keyboard
 
 
 bool initGL()
@@ -33,7 +32,6 @@ bool initGL()
 
     return true;
 }
-
 
 void handleKeyDown( unsigned char key, int x, int y )
 {

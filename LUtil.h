@@ -15,6 +15,7 @@ const int SCREEN_FPS = 60;
 
 bool initGL();
 
+extern bool keys[128];      //This has to be here so other files have visibility on keys, which is actually declared in LUtil.cpp
 void handleKeyDown( unsigned char key, int x, int y );
 void handleKeyUp( unsigned char key, int x, int y );
 

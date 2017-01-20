@@ -48,7 +48,13 @@ void Ship::draw(int timeNow) {
     //drawHexGrid(20, 5);
 }
 
-void Ship::update(int timeNow, std::vector<Solar*> solars) {
+void Ship::update(bool keys[], int timeNow, std::vector<Solar*> solars) {
+
+    thrustLeft(keys[controlKeys.thrustLeft]);
+    thrustRight(keys[controlKeys.thrustRight]);
+    thrustForward(keys[controlKeys.thrustForward]);
+    if(keys[controlKeys.fire]) fire(timeNow);
+
     float accel = isThrustForward ? getForwardAccel() : 0;
     float angularAccel = ( (isThrustLeft ? -1.f : 0) + (isThrustRight ? 1.f : 0) ) * getAngularAccel();
 

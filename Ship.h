@@ -5,6 +5,13 @@
 #include "ThrusterAnim.h"
 #include "Projectile.h"
 
+struct ControlKeys {
+    char thrustLeft;
+    char thrustRight;
+    char thrustForward;
+    char fire;
+};
+
 class Ship : public Entity
 {
     public:
@@ -13,7 +20,7 @@ class Ship : public Entity
 
         //Administrative
         void draw(int);
-        void update(int, std::vector<Solar*> solars);
+        void update(bool keys[], int timeNow, std::vector<Solar*> solars);
 
         //Public Actions
         void thrustForward(bool en);
@@ -43,6 +50,9 @@ class Ship : public Entity
         //Weapon variables that may be encapsulated in a Weapon class later
         int weapFirePeriod = 300;       //ms
         int weapTimeLastFired = 0;
+
+        ControlKeys controlKeys = {'a', 'd', 'w', 'e'};
 };
+
 
 #endif // SHIP_H

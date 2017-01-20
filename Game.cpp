@@ -23,13 +23,7 @@ vector<Solar*> solars;                      //Solars are gravity sources
 void update(int timeNowMs)
 {
 
-    ships[0]->thrustLeft(getKey('a'));
-    ships[0]->thrustRight(getKey('d'));
-    ships[0]->thrustForward(getKey('w'));
-
-    if(getKey('e')) ships[0]->fire(timeNowMs);
-
-    ships[0]->update(timeNowMs, solars);
+    ships[0]->update(keys, timeNowMs, solars);
 
     for(vector<Projectile*>::iterator it = projectiles.begin(); it != projectiles.end(); it++)
     {
