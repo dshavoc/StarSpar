@@ -7,10 +7,18 @@ Projectile::Projectile(float x, float y, float r, float vx, float vy, int t, Sty
     this->vx = vx;
     this->vy = vy;
     this->style = style;
+    timeCreated = t;
+    isFinishedFlag = false;
 }
 
 void Projectile::update(int timeNow, std::vector<Solar*> solars) {
     Entity::update(timeNow, 0.f, 0.f, 0.f, solars);
+
+    //End of life
+    if(timeNow - timeCreated > PROJECTILE_LIFESPAN_MS) {
+        isFinishedFlag = true;
+        printf("t1: %d, t2: %d, delta: %d, eol: %d \r\n", timeCreated, timeNow, timeNow-timeCreated, PROJECTILE_LIFESPAN_MS);
+    }
 }
 
 void Projectile::draw(int timeNow) {

@@ -28,6 +28,11 @@ void update(int timeNowMs)
     for(vector<Projectile*>::iterator it = projectiles.begin(); it != projectiles.end(); it++)
     {
         (*it)->update(timeNowMs, solars);
+
+        if((*it)->isFinished()) {
+            projectiles.erase(it);
+            it--;   //offset to accommodate removed element. Otherwise next element would be skipped and it would exceed end, resulting in seg fault
+        }
     }
 }
 

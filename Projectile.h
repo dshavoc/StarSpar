@@ -13,6 +13,9 @@ class Projectile : public Entity
         void draw(int);
         void update(int, std::vector<Solar*> solars);
     protected:
+        int timeCreated;
+
+        const int PROJECTILE_LIFESPAN_MS = 10000;
     private:
 };
 

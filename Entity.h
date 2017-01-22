@@ -37,6 +37,8 @@ class Entity
         virtual void draw(int timeNow) = 0;
         void update(int timeNow, float accel, float accelAngle, float angularAccel, std::vector<Solar*> solars);
 
+        bool isFinished() {return isFinishedFlag;}
+
         float DEG_TO_RAD = 3.14159/180;
 
     protected:
@@ -45,6 +47,7 @@ class Entity
         float vx, vy,   omega;      //velocity, angular velocity
 
         int timeLastUpdate;
+        bool isFinishedFlag;
 };
 
 #endif // ENTITY_H
