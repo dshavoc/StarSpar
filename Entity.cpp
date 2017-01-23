@@ -17,8 +17,8 @@ Entity::~Entity()
     //dtor
 }
 
-bool Entity::collidesWith(Entity &other) {
-    return hypot( other.getX() - getX(), other.getY() - getY() ) < (other.getRadius() + getRadius());
+bool Entity::collidesWith(Entity *other) {
+    return hypot( other->getX() - getX(), other->getY() - getY() ) < (other->getRadius() + getRadius());
 }
 
 void Entity::update(int timeNow, float accel, float accelAngle, float angularAccel, std::vector<Solar*> solars) {

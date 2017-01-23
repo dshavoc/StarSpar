@@ -17,7 +17,7 @@ void Projectile::update(int timeNow, std::vector<Solar*> solars) {
     //End of life
     if(timeNow - timeCreated > PROJECTILE_LIFESPAN_MS) {
         isFinishedFlag = true;
-        printf("t1: %d, t2: %d, delta: %d, eol: %d \r\n", timeCreated, timeNow, timeNow-timeCreated, PROJECTILE_LIFESPAN_MS);
+        //printf("t1: %d, t2: %d, delta: %d, eol: %d \r\n", timeCreated, timeNow, timeNow-timeCreated, PROJECTILE_LIFESPAN_MS);
     }
 }
 

@@ -32,12 +32,13 @@ class Entity
         float getX() { return px; }
         float getY() { return py; }
 
-        bool collidesWith(Entity &other);
+        bool collidesWith(Entity *other);
 
         virtual void draw(int timeNow) = 0;
         void update(int timeNow, float accel, float accelAngle, float angularAccel, std::vector<Solar*> solars);
 
         bool isFinished() {return isFinishedFlag;}
+        void markFinished() {isFinishedFlag = true;}
 
         float DEG_TO_RAD = 3.14159/180;
 

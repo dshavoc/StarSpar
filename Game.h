@@ -31,5 +31,6 @@ void initGamespace();
 void addProjectile(Projectile*);        //A pointer to this function will be passed to all ships as a way for them
                                         //to add projectiles to the world without any other read/write ability.
 
+void createExplosion(float x, float y, float magnitude, int timeNow);
 
 #endif // GAME_H

@@ -6,9 +6,8 @@ SparkAnim::SparkAnim(float x, float y, float magnitude, int timeNow)
 {
     //magnitude pertains to both speed and radius (range at which spark dies out)
     this->radius = magnitude;
-    float speed = randFloatBetween(1.f, 10.f) * magnitude;
+    float speed = randFloatBetween(10.f, 30.f) * (1 + magnitude/3);
     float angle = randFloatBetween(0, 2*PI);
-    printf("angle: %6.2f, speed: %6.2f\r\n", angle, speed);
     vx = speed * cos(angle);
     vy = speed * sin(angle);
     headX = x;
@@ -37,6 +36,9 @@ void SparkAnim::draw(int timeNow) {
     }
     if(alpha > 0) {
 
+        glMatrixMode( GL_MODELVIEW );
+        glLoadIdentity();
+
         glBegin(GL_LINE_STRIP);
             //Draw head
             glColor3f(alpha * 1.f, alpha * 1.f, alpha * 1.f);
@@ -47,7 +49,7 @@ void SparkAnim::draw(int timeNow) {
         glEnd();
 
         timeLastChangeMs = timeNow;
-        printf("Head: (%6.2f, %6.2f), range: %6.2f, alpha: %6.2f\r\n", headX, headY, range, alpha);
+        //printf("Head: (%6.2f, %6.2f), range: %6.2f, alpha: %6.2f\r\n", headX, headY, range, alpha);
     }
     else {
         isFinishedFlag = true;
