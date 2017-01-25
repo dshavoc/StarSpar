@@ -4,5 +4,6 @@
 #include "LightningAnim.h"
 #include "ThrusterAnim.h"
 #include "SparkAnim.h"
+#include "ShockwaveAnim.h"
 
 #endif // ANIMATIONS_H

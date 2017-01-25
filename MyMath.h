@@ -8,6 +8,7 @@
 
 float randFloat();
 float randFloatBetween(float a, float b);
-
+float sigmoid(float x, float k);
+float lerp(float a, float b, float p);
 
 #endif // MYMATH_H

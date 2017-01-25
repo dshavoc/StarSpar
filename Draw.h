@@ -3,7 +3,7 @@
 
 #include "LOpenGL.h"
 
-void drawCircle(float radius, unsigned int numPoints);
+void drawCircle(float radius, unsigned int numPoints = 36);
 void drawHex(float radius);
 void drawHexGrid(float, float);
 void drawGrid();

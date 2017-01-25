@@ -9,3 +9,7 @@ float randFloatBetween(float a, float b) {
 float randFloat() {
     return (float)rand() / (float)RAND_MAX;
 }
+
+float lerp(float a, float b, float p) {
+    return a + (b-a) * p;
+}

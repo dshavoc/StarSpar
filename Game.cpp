@@ -30,7 +30,7 @@ void update(int timeNowMs)
         //Check for collisions with solars
         //for(vector<Solar*>::iterator pSolarIt = solars.begin(); pSolarIt != solars.end(); pSolarIt++) {
         if( (*pShipIt)->collidesWith(solars[0]) ) {
-            createExplosion( (*pShipIt)->getX(), (*pShipIt)->getY(), 45.f, timeNowMs);
+            createExplosion( (*pShipIt)->getX(), (*pShipIt)->getY(), 24.f, timeNowMs);
             (*pShipIt)->markFinished();
         }
         //}
@@ -114,7 +114,7 @@ void initGamespace() {
 
     resetKeys();
 
-    LightningAnim *l;
+    //LightningAnim *l;
 
     //l = new LightningAnim(-50, -50, 50, 50, timeNow, 0);
     //l->start(glutGet(GLUT_ELAPSED_TIME));
@@ -153,5 +153,13 @@ void createExplosion(float x, float y, float magnitude, int timeNow) {
     for(int i=0; i<numSparks; i++) {
         sa = new SparkAnim(x, y, magnitude, timeNow);
         destructionAnims.push_back(sa);
+    }
+
+    ShockwaveAnim *sw;
+    int numShockwaves = magnitude / 6;
+
+    for(int i=0; i<numShockwaves; i++) {
+        sw = new ShockwaveAnim(x, y, magnitude, timeNow);
+        destructionAnims.push_back(sw);
     }
 }

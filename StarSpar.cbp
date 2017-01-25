@@ -67,6 +67,12 @@
 		<Unit filename="Ship.h">
 			<Option virtualFolder="Entities/" />
 		</Unit>
+		<Unit filename="ShockwaveAnim.cpp">
+			<Option virtualFolder="Anim/" />
+		</Unit>
+		<Unit filename="ShockwaveAnim.h">
+			<Option virtualFolder="Anim/" />
+		</Unit>
 		<Unit filename="Solar.cpp">
 			<Option virtualFolder="Entities/" />
 		</Unit>
