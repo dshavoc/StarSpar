@@ -23,32 +23,12 @@ vector<Solar*> solars;                      //Solars are gravity sources
 void update(int timeNowMs)
 {
 
-    //Update ships
-    for(vector<Ship*>::iterator pShipIt = ships.begin(); pShipIt!= ships.end(); pShipIt++) {
-        (*pShipIt)->update(keys, timeNowMs, solars);
-
-        //Check for collisions with solars
-        //for(vector<Solar*>::iterator pSolarIt = solars.begin(); pSolarIt != solars.end(); pSolarIt++) {
-        if( (*pShipIt)->collidesWith(solars[0]) ) {
-            createExplosion( (*pShipIt)->getX(), (*pShipIt)->getY(), 24.f, timeNowMs);
-            (*pShipIt)->markFinished();
-        }
-        //}
-
-        //Check for end of life
-        if( (*pShipIt)->isFinished() ) {
-            ships.erase(pShipIt);
-            pShipIt--;
-        }
-    }
-
-
-    //Update projectiles
+    //Update projectiles (before ships, else ships will blow up on their own projectiles)
     for(vector<Projectile*>::iterator it = projectiles.begin(); it != projectiles.end(); it++)
     {
         (*it)->update(timeNowMs, solars);
 
-        //Check for collisions
+        //Check for collisions with solars
         if( (*it)->collidesWith(solars[0]) ) {
             createExplosion((*it)->getX(), (*it)->getY(), 6.f, timeNowMs);
             (*it)->markFinished();
@@ -62,7 +42,43 @@ void update(int timeNowMs)
         }
     }
 
+    //Update ships
+    for(vector<Ship*>::iterator pShipIt = ships.begin(); pShipIt!= ships.end(); pShipIt++) {
+        (*pShipIt)->update(keys, timeNowMs, solars);
 
+        //Check for collisions with solars
+        for(vector<Solar*>::iterator pSolarIt = solars.begin(); pSolarIt != solars.end(); pSolarIt++) {
+            if( (*pShipIt)->collidesWith(*pSolarIt) ) {
+                createExplosion( (*pShipIt)->getX(), (*pShipIt)->getY(), 24.f, timeNowMs);
+                (*pShipIt)->markFinished();
+            }
+        }
+
+        //Check for collisions with other ships
+        for(vector<Ship*>::iterator pShip2It = ships.begin(); pShip2It != ships.end(); pShip2It++) {
+            if( pShipIt != pShip2It && (*pShipIt)->collidesWith(*pShip2It) ) {
+                createExplosion( (*pShipIt)->getX(), (*pShipIt)->getY(), 24.f, timeNowMs);
+                createExplosion( (*pShip2It)->getX(), (*pShip2It)->getY(), 24.f, timeNowMs);
+                (*pShipIt)->markFinished();
+                (*pShip2It)->markFinished();
+            }
+        }
+
+        //Check for collisions with projectiles
+        for(vector<Projectile*>::iterator pProjIt = projectiles.begin(); pProjIt != projectiles.end(); pProjIt++) {
+            if( (*pShipIt)->collidesWith(*pProjIt) ) {
+                createExplosion( (*pShipIt)->getX(), (*pShipIt)->getY(), 24.f, timeNowMs);
+                (*pShipIt)->markFinished();
+                (*pProjIt)->markFinished();
+            }
+        }
+
+        //Check for end of life
+        if( (*pShipIt)->isFinished() ) {
+            ships.erase(pShipIt);
+            pShipIt--;
+        }
+    }
 }
 
 void render()
@@ -132,12 +148,15 @@ void initGamespace() {
     //destructionAnims.push_back(t);
     //t->start();
 
-    Ship *s = new Ship(0.f, 0.f, 5.f, timeNow, addProjectile);
-    ships.push_back(s);
-    s = new Ship(10.f, 0.f, 5.f, timeNow, addProjectile);
+    Ship *s = new Ship(0.f, 80.f, 5.f, timeNow, addProjectile);
+    s->setControlsForPlayer(1);
     ships.push_back(s);
 
-    Solar *sol = new Solar(-40.f, 0.f, 12.f, 20.f);
+    s = new Ship(0.f, -80.f, 5.f, timeNow, addProjectile);
+    s->setControlsForPlayer(2);
+    ships.push_back(s);
+
+    Solar *sol = new Solar(0.f, 0.f, 12.f, 20.f);
     solars.push_back(sol);
 
 }

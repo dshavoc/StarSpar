@@ -12,6 +12,7 @@ struct ControlKeys {
     char fire;
 };
 
+
 class Ship : public Entity
 {
     public:
@@ -27,6 +28,8 @@ class Ship : public Entity
         void thrustLeft(bool en);
         void thrustRight(bool en);
         void fire(int);
+
+        void setControlsForPlayer(int index);
 
 
     protected:
@@ -51,7 +54,9 @@ class Ship : public Entity
         int weapFirePeriod = 300;       //ms
         int weapTimeLastFired = 0;
 
-        ControlKeys controlKeys = {'a', 'd', 'w', 'e'};
+        ControlKeys *controlKeys;
+        ControlKeys player1controls = {'a', 'd', 'w', 'e'};
+        ControlKeys player2controls = {'k', ';', 'o', '\''};
 };
 
 
