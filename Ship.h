@@ -22,12 +22,14 @@ class Ship : public Entity
         //Administrative
         void draw(int);
         void update(bool keys[], int timeNow, std::vector<Solar*> solars);
+        bool takeDamage();
 
         //Public Actions
         void thrustForward(bool en);
         void thrustLeft(bool en);
         void thrustRight(bool en);
         void fire(int);
+
 
         void setControlsForPlayer(int index);
 
@@ -47,14 +49,14 @@ class Ship : public Entity
 
         //DEFENSE
         int hitPoints, maxHitPoints;
-        float shields, maxShields;
+        float shields, maxShields, shieldChargeRate = 0.2f;
 
 
         //WEAPONS
         void (*addProjectile)(Projectile*);
 
         //Weapon variables that may be encapsulated in a Weapon class later
-        int weapFirePeriod = 300;       //ms
+        int weapFirePeriod = 200;       //ms
         int weapTimeLastFired = 0;
 
 

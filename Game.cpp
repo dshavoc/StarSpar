@@ -47,9 +47,12 @@ void update(int timeNowMs)
         //Check for collisions with projectiles
         for(vector<Projectile*>::iterator pProjIt = projectiles.begin(); pProjIt != projectiles.end(); pProjIt++) {
             if( (*pShipIt)->collidesWith(*pProjIt) ) {
-                createExplosion( (*pShipIt)->getX(), (*pShipIt)->getY(), 24.f, timeNowMs);
-                (*pShipIt)->markFinished();
+                if( (*pShipIt)->takeDamage() ) {
+                    createExplosion( (*pShipIt)->getX(), (*pShipIt)->getY(), 24.f, timeNowMs);
+                    (*pShipIt)->markFinished();
+                }
                 (*pProjIt)->markFinished();
+                createExplosion((*pProjIt)->getX(), (*pProjIt)->getY(), 6.f, timeNowMs);
             }
         }
 

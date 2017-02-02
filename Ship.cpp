@@ -11,7 +11,9 @@ Ship::Ship(float x, float y, float r, int t, void (*addProjectileHandle)(Project
     isThrustRight = false;
     addProjectile = addProjectileHandle;
 
-    hitPoints = 100;
+    hitPoints = 5;
+    shields = 5;
+    maxShields = 5;
 
     setControlsForPlayer(1);
 }
@@ -46,11 +48,18 @@ void Ship::draw(int timeNow) {
     thrusterAnimR->draw(timeNow);
 
     //Draw weapons and shields
-    //glColor3f(0.4, 0.4, .7);
+    float shieldP = shields/maxShields;
+    glColor3f(shieldP*.8f, shieldP*.8f, shieldP);
     //drawHexGrid(20, 5);
+    drawCircle(12.f);
 }
 
 void Ship::update(bool keys[], int timeNow, std::vector<Solar*> solars) {
+
+    //Update shields
+    shields += shieldChargeRate * (timeNow - timeLastUpdate) / 1000.f;
+    if(shields > maxShields) shields = maxShields;
+    printf("shields: %f\r\n", shields);
 
     // Update ship position
     thrustLeft(keys[controlKeys->thrustLeft]);
@@ -65,6 +74,7 @@ void Ship::update(bool keys[], int timeNow, std::vector<Solar*> solars) {
     //Spawn any new Entities after updating ship position
 
     if(keys[controlKeys->fire]) fire(timeNow);
+
 }
 
 void Ship::thrustForward(bool en) {
@@ -118,6 +128,24 @@ void Ship::fire(int timeNow) {
             timeNow)
         );
     }
+}
+
+//Take damage and return whether it was lethal
+bool Ship::takeDamage() {
+    bool isDead = false;
+
+    if(shields >= 1) {
+        shields -= 1;
+    }
+    else {
+        hitPoints -= 1;
+    }
+
+    if(hitPoints <= 0) {
+        isDead = true;
+    }
+
+    return isDead;
 }
 
 void Ship::setControlsForPlayer(int index) {
