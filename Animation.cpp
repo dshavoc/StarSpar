@@ -43,13 +43,13 @@ void Animation::updateAnimState(int timeNow) {
     case STARTING:
         if(timeNow - timeLastChangeMs >= transitionTime) {
             animState = ON;
-            printf("STARTING -> ON\r\n");
+            //printf("STARTING -> ON\r\n");
         }
         break;
     case STOPPING:
         if(timeNow - timeLastChangeMs >= transitionTime) {
             animState = OFF;
-            printf("STOPPING -> OFF\r\n");
+            //printf("STOPPING -> OFF\r\n");
         }
     default:;
     }

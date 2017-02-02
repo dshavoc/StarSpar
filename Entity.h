@@ -40,6 +40,8 @@ class Entity
         bool isFinished() {return isFinishedFlag;}
         void markFinished() {isFinishedFlag = true;}
 
+        void printDistanceTo(Entity *other);
+
         float DEG_TO_RAD = 3.14159/180;
 
     protected:

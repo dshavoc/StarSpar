@@ -18,7 +18,16 @@ Entity::~Entity()
 }
 
 bool Entity::collidesWith(Entity *other) {
-    return hypot( other->getX() - getX(), other->getY() - getY() ) < (other->getRadius() + getRadius());
+    float dist = hypot( other->getX() - getX(), other->getY() - getY() );
+    bool cw = dist < (other->getRadius() + getRadius());
+    if(cw) {
+        printf("Collided at distance %f < %f + %f\r\n", dist, other->getRadius(), getRadius());
+    }
+    return  cw;
+}
+
+void Entity::printDistanceTo(Entity *other) {
+    printf("  here to there: %f\r\n", hypot(other->getX() - getX(), other->getY() - getY()));
 }
 
 void Entity::update(int timeNow, float accel, float accelAngle, float angularAccel, std::vector<Solar*> solars) {
@@ -57,4 +66,6 @@ void Entity::update(int timeNow, float accel, float accelAngle, float angularAcc
     theta += omega * t_s;
 
     timeLastUpdate = timeNow;
+
+    //printf("Entity::Update velocity %f\r\n", hypot(vx, vy));
 }

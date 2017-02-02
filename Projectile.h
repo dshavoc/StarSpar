@@ -15,7 +15,8 @@ class Projectile : public Entity
     protected:
         int timeCreated;
 
-        const int PROJECTILE_LIFESPAN_MS = 10000;
+        const int PROJECTILE_LIFESPAN_MS = 5000;
+
     private:
 };
 

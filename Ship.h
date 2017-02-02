@@ -33,30 +33,35 @@ class Ship : public Entity
 
 
     protected:
-        bool isThrustForward, isThrustLeft, isThrustRight;     //combinations of these may produce unique results
 
-        int hitPoints;
-        //hard points
-        //maneuvering thrusters (angular acceleration)
-        //main engine (forward acceleration)
-
-        float getForwardAccel() {return 50.f;}  //Placeholder that will eventually call engine.accel()
-        float getAngularAccel() {return 400.f;}   //Placeholder that will eventually call thrusters.accelDegrees()
-
+        //ENGINES
+        bool isThrustForward, isThrustLeft, isThrustRight;
         ThrusterAnim *thrusterAnim;
         ThrusterAnim *thrusterAnim2;
         ThrusterAnim *thrusterAnimL;
         ThrusterAnim *thrusterAnimR;
 
+        float getForwardAccel() {return 50.f;}      //Placeholder that will eventually call engine.accel()
+        float getAngularAccel() {return 400.f;}     //Placeholder that will eventually call thrusters.accel()
+
+
+        //DEFENSE
+        int hitPoints, maxHitPoints;
+        float shields, maxShields;
+
+
+        //WEAPONS
         void (*addProjectile)(Projectile*);
 
         //Weapon variables that may be encapsulated in a Weapon class later
         int weapFirePeriod = 300;       //ms
         int weapTimeLastFired = 0;
 
+
+        //CONTROL INPUT
         ControlKeys *controlKeys;
         ControlKeys player1controls = {'a', 'd', 'w', 'e'};
-        ControlKeys player2controls = {'k', ';', 'o', '\''};
+        ControlKeys player2controls = {'k', ';', 'o', 'p'};
 };
 
 

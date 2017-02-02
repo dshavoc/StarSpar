@@ -52,15 +52,19 @@ void Ship::draw(int timeNow) {
 
 void Ship::update(bool keys[], int timeNow, std::vector<Solar*> solars) {
 
+    // Update ship position
     thrustLeft(keys[controlKeys->thrustLeft]);
     thrustRight(keys[controlKeys->thrustRight]);
     thrustForward(keys[controlKeys->thrustForward]);
-    if(keys[controlKeys->fire]) fire(timeNow);
 
     float accel = isThrustForward ? getForwardAccel() : 0;
     float angularAccel = ( (isThrustLeft ? -1.f : 0) + (isThrustRight ? 1.f : 0) ) * getAngularAccel();
 
     Entity::update(timeNow, accel, theta, angularAccel, solars);
+
+    //Spawn any new Entities after updating ship position
+
+    if(keys[controlKeys->fire]) fire(timeNow);
 }
 
 void Ship::thrustForward(bool en) {
@@ -100,14 +104,14 @@ void Ship::fire(int timeNow) {
     if(timeNow - weapTimeLastFired > weapFirePeriod) {
         weapTimeLastFired = timeNow;
 
-        float PROJECTILE_SPEED = 150;
+        float PROJECTILE_SPEED = 100;
         float PROJECTILE_RADIUS = 1.0f;
         float projectileVx = PROJECTILE_SPEED * cos(theta * DEG_TO_RAD);
         float projectileVy = PROJECTILE_SPEED * sin(theta * DEG_TO_RAD);
 
         (*addProjectile)( new Projectile(
-            px + (radius + PROJECTILE_RADIUS + 3) * cos(theta * DEG_TO_RAD),
-            py + (radius + PROJECTILE_RADIUS + 3) * sin(theta * DEG_TO_RAD),
+            px + (radius + PROJECTILE_RADIUS + 1) * cos(theta * DEG_TO_RAD),
+            py + (radius + PROJECTILE_RADIUS + 1) * sin(theta * DEG_TO_RAD),
             PROJECTILE_RADIUS,
             vx + projectileVx,
             vy + projectileVy,

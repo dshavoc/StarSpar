@@ -23,28 +23,8 @@ vector<Solar*> solars;                      //Solars are gravity sources
 void update(int timeNowMs)
 {
 
-    //Update projectiles (before ships, else ships will blow up on their own projectiles)
-    for(vector<Projectile*>::iterator it = projectiles.begin(); it != projectiles.end(); it++)
-    {
-        (*it)->update(timeNowMs, solars);
-
-        //Check for collisions with solars
-        if( (*it)->collidesWith(solars[0]) ) {
-            createExplosion((*it)->getX(), (*it)->getY(), 6.f, timeNowMs);
-            (*it)->markFinished();
-        }
-
-        //Check for end of life
-        if((*it)->isFinished()) {
-            printf("Killing projectile\r\n");
-            projectiles.erase(it);
-            it--;   //offset to accommodate removed element. Otherwise next element would be skipped and it would exceed end, resulting in seg fault
-        }
-    }
-
     //Update ships
     for(vector<Ship*>::iterator pShipIt = ships.begin(); pShipIt!= ships.end(); pShipIt++) {
-        (*pShipIt)->update(keys, timeNowMs, solars);
 
         //Check for collisions with solars
         for(vector<Solar*>::iterator pSolarIt = solars.begin(); pSolarIt != solars.end(); pSolarIt++) {
@@ -73,12 +53,39 @@ void update(int timeNowMs)
             }
         }
 
+        (*pShipIt)->update(keys, timeNowMs, solars);
+
         //Check for end of life
         if( (*pShipIt)->isFinished() ) {
             ships.erase(pShipIt);
             pShipIt--;
         }
     }
+
+    //Update projectiles
+    for(vector<Projectile*>::iterator it = projectiles.begin(); it != projectiles.end(); it++)
+    {
+
+        //Check for collisions with solars
+        for(vector<Solar*>::iterator pSolarIt = solars.begin(); pSolarIt != solars.end(); pSolarIt++) {
+            if( (*it)->collidesWith(*pSolarIt) ) {
+                createExplosion((*it)->getX(), (*it)->getY(), 6.f, timeNowMs);
+                (*it)->markFinished();
+            }
+        }
+
+        (*it)->update(timeNowMs, solars);
+
+        //(*it)->printDistanceTo(ships[0]);
+
+        //Check for end of life
+        if((*it)->isFinished()) {
+            printf("Killing projectile\r\n");
+            projectiles.erase(it);
+            it--;   //offset to accommodate removed element. Otherwise next element would be skipped and it would exceed end, resulting in seg fault
+        }
+    }
+
 }
 
 void render()
@@ -117,6 +124,8 @@ void render()
         (*it)->draw(timeNowMs);
     }
 
+    //6. Draw HUD elements
+
 
     setProjection();
 
@@ -133,11 +142,11 @@ void initGamespace() {
     //LightningAnim *l;
 
     //l = new LightningAnim(-50, -50, 50, 50, timeNow, 0);
-    //l->start(glutGet(GLUT_ELAPSED_TIME));
+    //l->start();
     //destructionAnims.push_back(l);
 
     //l = new LightningAnim(50, -50, -50, 50, timeNow, 0);
-    //l->start(glutGet(GLUT_ELAPSED_TIME));
+    //l->start();
     //destructionAnims.push_back(l);
 
     //SparkAnim *sa = new SparkAnim(0.f, 0.f, 10.f, timeNow);
