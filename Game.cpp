@@ -169,7 +169,7 @@ void initGamespace() {
     ships.push_back(s);
 
     Solar *sol = new Solar(0.f, 0.f, 12.f, 20.f);
-    solars.push_back(sol);
+    //solars.push_back(sol);
 
 }
 

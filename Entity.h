@@ -27,7 +27,7 @@ class Entity
         Entity(float x, float y, float r, int timeNow);
         virtual ~Entity();
 
-        float getRadius() { return radius; }
+        virtual float getRadius() { return radius; }
         void setRadius(float r) { radius = r; }
         float getX() { return px; }
         float getY() { return py; }

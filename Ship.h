@@ -29,7 +29,7 @@ class Ship : public Entity
         void thrustLeft(bool en);
         void thrustRight(bool en);
         void fire(int);
-
+        float getRadius();                          //Overloaded from Entity to account for shield radius
 
         void setControlsForPlayer(int index);
 

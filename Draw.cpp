@@ -13,6 +13,15 @@ void drawCircle(float radius, unsigned int numPoints) {
     glEnd();
 }
 
+void drawOval(float rx, float ry, unsigned int numPoints) {
+    glBegin(GL_LINE_STRIP);
+    for(unsigned int i=0; i<=numPoints; i++) {
+        glVertex2f( rx * cos((float)i*2*PI/numPoints),
+                    ry * sin((float)i*2*PI/numPoints) );
+    }
+    glEnd();
+}
+
 void drawHex(float radius) {
 
     glBegin(GL_LINE_STRIP);

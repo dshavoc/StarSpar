@@ -51,7 +51,8 @@ void Ship::draw(int timeNow) {
     float shieldP = shields/maxShields;
     glColor3f(shieldP*.8f, shieldP*.8f, shieldP);
     //drawHexGrid(20, 5);
-    drawCircle(12.f);
+    //drawCircle(12.f);
+    drawOval(12.f, 10.f);
 }
 
 void Ship::update(bool keys[], int timeNow, std::vector<Solar*> solars) {
@@ -75,6 +76,10 @@ void Ship::update(bool keys[], int timeNow, std::vector<Solar*> solars) {
 
     if(keys[controlKeys->fire]) fire(timeNow);
 
+}
+
+float Ship::getRadius() {
+    return radius + (shields >= 1.f ? 5.f : 0.f);
 }
 
 void Ship::thrustForward(bool en) {
@@ -120,8 +125,8 @@ void Ship::fire(int timeNow) {
         float projectileVy = PROJECTILE_SPEED * sin(theta * DEG_TO_RAD);
 
         (*addProjectile)( new Projectile(
-            px + (radius + PROJECTILE_RADIUS + 1) * cos(theta * DEG_TO_RAD),
-            py + (radius + PROJECTILE_RADIUS + 1) * sin(theta * DEG_TO_RAD),
+            px + (getRadius() + PROJECTILE_RADIUS + 1) * cos(theta * DEG_TO_RAD),
+            py + (getRadius() + PROJECTILE_RADIUS + 1) * sin(theta * DEG_TO_RAD),
             PROJECTILE_RADIUS,
             vx + projectileVx,
             vy + projectileVy,
