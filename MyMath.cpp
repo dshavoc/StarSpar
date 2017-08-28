@@ -2,6 +2,8 @@
 #include <cmath>
 #include <cstdlib>
 
+const float DEG_TO_RAD = PI/180;
+
 float randFloatBetween(float a, float b) {
     return randFloat() * (b - a) + a;
 }

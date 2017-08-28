@@ -3,7 +3,7 @@
 
 #include "Entity.h"
 #include "ThrusterAnim.h"
-#include "Projectile.h"
+#include "ProjectileWeapon.h"
 
 struct ControlKeys {
     char thrustLeft;
@@ -53,6 +53,7 @@ class Ship : public Entity
 
 
         //WEAPONS
+        ProjectileWeapon * weapon;
         void (*addProjectile)(Projectile*);
 
         //Weapon variables that may be encapsulated in a Weapon class later

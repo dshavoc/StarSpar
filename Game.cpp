@@ -1,5 +1,8 @@
 #include "Game.h"
 #include <vector>
+#include <string>
+
+// g++ -std=c++11 -Wall -g -std=c++11 -ID:/lib/freeglut/include -c /home/dkohler/work/StarSpar/Game.cpp -o obj/Debug/Game.o
 
 /*
 Game::Game()
@@ -168,8 +171,12 @@ void initGamespace() {
     s->setControlsForPlayer(2);
     ships.push_back(s);
 
-    Solar *sol = new Solar(0.f, 0.f, 12.f, 20.f);
+    //Solar *sol = new Solar(0.f, 0.f, 12.f, 20.f);
     //solars.push_back(sol);
+
+    //Define Weapons
+    ProjectileWeapon projectileWeapon(string("Cannon"), addProjectile);
+
 
 }
 

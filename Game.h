@@ -8,6 +8,7 @@
 #include "Projectile.h"
 #include "Solar.h"
 #include "Draw.h"
+#include "ProjectileWeapon.h"
 
 using namespace std;
 

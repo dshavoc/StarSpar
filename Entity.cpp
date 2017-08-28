@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include "Solar.h"      //Including this here to avoid circular reference issues (can't detect getX(), ... )
+#include "MyMath.h"
 
 Entity::Entity() : Entity(0, 0, 0, 0) {}
 

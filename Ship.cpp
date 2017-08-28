@@ -16,6 +16,9 @@ Ship::Ship(float x, float y, float r, int t, void (*addProjectileHandle)(Project
     maxShields = 5;
 
     setControlsForPlayer(1);
+
+    //Temporary
+    weapon = new ProjectileWeapon(std::string("Cannon"), addProjectile);
 }
 
 Ship::~Ship()
@@ -63,9 +66,9 @@ void Ship::update(bool keys[], int timeNow, std::vector<Solar*> solars) {
     printf("shields: %f\r\n", shields);
 
     // Update ship position
-    thrustLeft(keys[controlKeys->thrustLeft]);
-    thrustRight(keys[controlKeys->thrustRight]);
-    thrustForward(keys[controlKeys->thrustForward]);
+    thrustLeft(keys[(int)controlKeys->thrustLeft]);
+    thrustRight(keys[(int)controlKeys->thrustRight]);
+    thrustForward(keys[(int)controlKeys->thrustForward]);
 
     float accel = isThrustForward ? getForwardAccel() : 0;
     float angularAccel = ( (isThrustLeft ? -1.f : 0) + (isThrustRight ? 1.f : 0) ) * getAngularAccel();
@@ -74,7 +77,7 @@ void Ship::update(bool keys[], int timeNow, std::vector<Solar*> solars) {
 
     //Spawn any new Entities after updating ship position
 
-    if(keys[controlKeys->fire]) fire(timeNow);
+    if(keys[(int)controlKeys->fire]) fire(timeNow);
 
 }
 
@@ -119,10 +122,12 @@ void Ship::fire(int timeNow) {
     if(timeNow - weapTimeLastFired > weapFirePeriod) {
         weapTimeLastFired = timeNow;
 
+        /*
         float PROJECTILE_SPEED = 100;
         float PROJECTILE_RADIUS = 1.0f;
         float projectileVx = PROJECTILE_SPEED * cos(theta * DEG_TO_RAD);
         float projectileVy = PROJECTILE_SPEED * sin(theta * DEG_TO_RAD);
+
 
         (*addProjectile)( new Projectile(
             px + (getRadius() + PROJECTILE_RADIUS + 1) * cos(theta * DEG_TO_RAD),
@@ -131,8 +136,12 @@ void Ship::fire(int timeNow) {
             vx + projectileVx,
             vy + projectileVy,
             timeNow)
-        );
+        );*/
+
+        weapon->fire(px, py, getRadius(), vx, vy, theta, timeNow);
+
     }
+
 }
 
 //Take damage and return whether it was lethal

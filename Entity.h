@@ -42,7 +42,7 @@ class Entity
 
         void printDistanceTo(Entity *other);
 
-        float DEG_TO_RAD = 3.14159/180;
+
 
     protected:
         float radius;

@@ -6,6 +6,8 @@
 #define ROOT_3_BY_2     (0.866025404)
 #define PI              (3.14159f)
 
+extern const float DEG_TO_RAD;
+
 float randFloat();
 float randFloatBetween(float a, float b);
 float sigmoid(float x, float k);
