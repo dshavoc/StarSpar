@@ -77,6 +77,8 @@ void Ship::update(bool keys[], int timeNow, std::vector<Solar*> solars) {
 
     //Spawn any new Entities after updating ship position
 
+    weapon->update(px, py, getRadius(), vx, vy, theta, timeNow);
+
     if(keys[(int)controlKeys->fire]) fire(timeNow);
 
 }
@@ -118,30 +120,7 @@ void Ship::thrustRight(bool en) {
 }
 
 void Ship::fire(int timeNow) {
-    //Eventually this code will live in a Weapon class and be customizable there.
-    if(timeNow - weapTimeLastFired > weapFirePeriod) {
-        weapTimeLastFired = timeNow;
-
-        /*
-        float PROJECTILE_SPEED = 100;
-        float PROJECTILE_RADIUS = 1.0f;
-        float projectileVx = PROJECTILE_SPEED * cos(theta * DEG_TO_RAD);
-        float projectileVy = PROJECTILE_SPEED * sin(theta * DEG_TO_RAD);
-
-
-        (*addProjectile)( new Projectile(
-            px + (getRadius() + PROJECTILE_RADIUS + 1) * cos(theta * DEG_TO_RAD),
-            py + (getRadius() + PROJECTILE_RADIUS + 1) * sin(theta * DEG_TO_RAD),
-            PROJECTILE_RADIUS,
-            vx + projectileVx,
-            vy + projectileVy,
-            timeNow)
-        );*/
-
-        weapon->fire(px, py, getRadius(), vx, vy, theta, timeNow);
-
-    }
-
+    weapon->fire(timeNow);
 }
 
 //Take damage and return whether it was lethal

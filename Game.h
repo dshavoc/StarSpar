@@ -34,4 +34,6 @@ void addProjectile(Projectile*);        //A pointer to this function will be pas
 
 void createExplosion(float x, float y, float magnitude, int timeNow);
 
+void drawHUD(Ship * ship);
+
 #endif // GAME_H

@@ -56,10 +56,6 @@ class Ship : public Entity
         ProjectileWeapon * weapon;
         void (*addProjectile)(Projectile*);
 
-        //Weapon variables that may be encapsulated in a Weapon class later
-        int weapFirePeriod = 200;       //ms
-        int weapTimeLastFired = 0;
-
 
         //CONTROL INPUT
         ControlKeys *controlKeys;

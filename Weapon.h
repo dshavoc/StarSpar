@@ -19,6 +19,7 @@ struct DamageProfile {
     float shieldPierce;         //How much shield is ignored before damage is applied to shield instead of hull
 };
 
+
 //enum DamageType { KINETIC, LASER, ION, PLASMA};         //Just a thought
 //enum WeaponType { PROJECTILE, BEAM, MISSILE };          //Just a thought. Alternative to child classes
 
@@ -32,7 +33,7 @@ class Weapon : public Module
         virtual void fire(float srcX, float srcY, float srcR, float srcVx, float srcVy, float theta, int timeNow);
 
     protected:
-        DamageProfile damageProfile = {0.f, 0.f, 0.f, 0.f};
+        DamageProfile damageProfile = {1.f, 0.f, 0.f, 0.f};
     private:
 };
 

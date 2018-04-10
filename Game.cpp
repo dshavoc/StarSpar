@@ -113,7 +113,7 @@ void render()
         solars[i]->draw(timeNowMs);
     }
 
-    //3. Draw destruction animations and debris
+    //3. Draw destruction animations, debris, and other background effects
     for(unsigned int i = 0; i < destructionAnims.size(); i++) {
         destructionAnims[i]->draw(timeNowMs);
     }
@@ -124,7 +124,7 @@ void render()
         ships[i]->draw(timeNowMs);
     }
 
-    //5. Draw projectiles, beam weapon discharge, explosions, and other effects
+    //5. Draw projectiles, beam weapon discharge, explosions, and other foreground effects
     for(vector<Projectile*>::iterator it = projectiles.begin(); it != projectiles.end(); it++)
     {
         (*it)->draw(timeNowMs);
@@ -200,4 +200,8 @@ void createExplosion(float x, float y, float magnitude, int timeNow) {
         sw = new ShockwaveAnim(x, y, magnitude, timeNow);
         destructionAnims.push_back(sw);
     }
+}
+
+void drawHUD(Ship * ship) {
+
 }
